@@ -1,3 +1,7 @@
+check:
+	npm install
+	npm test
+
 run:
 	node ./dpgs-transform.js
 

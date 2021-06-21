@@ -3,9 +3,8 @@
 const fs = require('fs');
 const csv = require('csvtojson');
 
-let headers = [];
-
 async function path_to_rows(path) {
+    let headers = [];
     let converter = csv({
         flatKeys: true
     }).on('header', (doc_headers) => {
@@ -20,10 +19,13 @@ async function path_to_rows(path) {
             rows.push(objs[i]);
         }
     });
-    return rows;
+    return {
+        headers: headers,
+        rows: rows
+    };
 }
 
-function transform_row_to_submission(row) {
+function transform_row_to_submission(headers, row) {
     let submission = {};
 
     submission.name = row[headers[0]];
@@ -43,7 +45,9 @@ function transform_row_to_submission(row) {
 
 async function main() {
     const csvFilePath = 'Digital-Public-Goods-Submissions-Sheet1.csv';
-    let rows = await path_to_rows(csvFilePath);
+    let result = await path_to_rows(csvFilePath);
+    let rows = result.rows;
+    let headers = result.headers;
 
     let submissions = [];
     for (let i = 0; i < rows.length; ++i) {
@@ -53,14 +57,25 @@ async function main() {
                 row: row
             }, null, 4));
         }
-        let submission = transform_row_to_submission(row);
+        let submission = transform_row_to_submission(headers, row);
         submissions.push(submission);
     }
 
+    let ffpc = {};
+    for (let i = 0; i < headers.length; ++i) {
+        ffpc[i] = rows[3][headers[i]];
+    }
+    // console.log(JSON.stringify(ffpc, null, 4));
+    /*
     console.log(JSON.stringify({
-        submissions: submissions,
-        submissions3: submissions[3]
+        headers: headers,
+        // submissions3: submissions[3]
     }, null, 4));
+    */
 }
 
-main();
+module.exports = {
+    transform_row_to_submission: transform_row_to_submission
+};
+
+// main();
