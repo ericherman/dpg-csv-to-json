@@ -80,4 +80,12 @@ test('test row transform', async () => {
         .toBe("No");
     expect(s.platformIndependence.isSoftwarePltIndependent).toBe("");
     expect(s.platformIndependence.pltIndependenceDesc).toBe("");
+
+    expect(s.documentation.isDocumentationAvailable).toBe("Yes");
+    let urls = [ "https://github.com/publiccodenet/standard" ];
+    expect(s.documentation.documentationURL).toStrictEqual(urls);
+
+    expect(s.NonPII.collectsNonPII).toBe("No");
+    expect(s.NonPII.checkNonPIIAccessMechanism).toBe("");
+    expect(s.NonPII.nonPIIAccessMechanism).toBe("");
 });

@@ -40,6 +40,18 @@ function transform_row_to_submission(headers, row) {
     pltIndep.pltIndependenceDesc = row[headers[14]];
     submission.platformIndependence = pltIndep;
 
+    let documentation = {};
+    documentation.isDocumentationAvailable = row[headers[15]];
+    let doc_urls = row[headers[16]].split('\n');
+    documentation.documentationURL = doc_urls;
+    submission.documentation = documentation;
+
+    let NonPII = {};
+    NonPII.collectsNonPII = row[headers[17]];
+    NonPII.checkNonPIIAccessMechanism = row[headers[18]];
+    NonPII.nonPIIAccessMechanism = ""; // TODO: find how to get this field.
+    submission.NonPII = NonPII;
+
     return submission;
 }
 
@@ -65,7 +77,6 @@ async function main() {
     for (let i = 0; i < headers.length; ++i) {
         ffpc[i] = rows[3][headers[i]];
     }
-    // console.log(JSON.stringify(ffpc, null, 4));
     /*
     console.log(JSON.stringify({
         headers: headers,
