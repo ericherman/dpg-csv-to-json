@@ -68,6 +68,16 @@ test('test row transform', async () => {
         "55": "",
         "56": ""
     };
-    let submission = await txfrm.transform_row_to_submission(headers, test_row);
-    expect(submission.name).toBe("Standard for Public Code");
+    let s = await txfrm.transform_row_to_submission(headers, test_row);
+
+    expect(s.name).toBe("Standard for Public Code");
+
+    expect(s.clearOwnership.isOwnershipExplicit).toBe("Yes");
+    expect(s.clearOwnership.copyrightURL)
+        .toBe("https://standard.publiccode.net/GOVERNANCE.html");
+
+    expect(s.platformIndependence.mandatoryDepsCreateMoreRestrictions)
+        .toBe("No");
+    expect(s.platformIndependence.isSoftwarePltIndependent).toBe("");
+    expect(s.platformIndependence.pltIndependenceDesc).toBe("");
 });
