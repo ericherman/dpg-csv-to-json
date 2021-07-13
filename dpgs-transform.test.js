@@ -51,14 +51,14 @@ test('test row transform', async () => {
         "38": "No",
         "39": "",
         "40": "Yes",
-        "41": "All contributors to the Standard for Public Code must follow the [Code of Conduct](https://standard.publiccode.net/CODE_OF_CONDUCT.html). This sets out our values and explains how we handle Code of Conduct violations.\n\n[Contributing](https://standard.publiccode.net/CONTRIBUTING.html) explains our review process. Though no times are listed, in practice contributions are usually checked within 2 hours during business hours, Monday-Friday. We have set up automatic alerts to notify us when a new contribution is made.",
+        "41": "Code review required",
         "42": "Yes",
         "43": "No",
-        "44": "The project does not identify, collect or store the age of the audience, nor enforce age limits. The target audience to use the Standard are civil servants (policy makers, managers), and developers and designers. Anyone is allowed to contribute to the Standard via the GitHub repository. Contributions must abide by our code of conduct.",
+        "44": "No steps taken",
         "45": "Yes",
-        "46": "Our code of conduct is enforced as follows:\nInstances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at directors@publiccode.net. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.\n\nProject maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project’s leadership.",
+        "46": "Harassment Protection Step 1\nStep 2\nStep3",
         "47": "Yes",
-        "48": "The target audience is public organizations that have ethics and value based policies already. We remind them to document that publicly in our criterion \"Document your objectives\":  https://standard.publiccode.net/criteria/document-objectives.html",
+        "48": "Public organizations have ethics and value based policies",
         "49": "We don't collect any information from users.",
         "50": "",
         "51": "I agree",
@@ -129,5 +129,27 @@ test('test row transform', async () => {
         .toStrictEqual([""]);
     expect(s.doNoHarm.dataPrivacySecurity.ensurePrivacySecurity).toBe("");
     expect(s.doNoHarm.dataPrivacySecurity.privacySecurityDescription).toBe("");
+
+    expect(s.doNoHarm.inappropriateIllegalContent.collectStoreDistribute)
+        .toBe("No");
+    expect(s.doNoHarm.inappropriateIllegalContent.type).toBe("");
+    expect(s.doNoHarm.inappropriateIllegalContent.illegalContentDetection)
+        .toBe("Yes");
+    expect(s.doNoHarm.inappropriateIllegalContent
+        .illegalContentDetectionMechanism).toBe("Code review required");
+    expect(s.doNoHarm.protectionFromHarassment.userInteraction).toBe("Yes");
+    expect(s.doNoHarm.protectionFromHarassment
+        .addressSafetySecurityUnderageUsers).toBe("No");
+    expect(s.doNoHarm.protectionFromHarassment
+            .stepsAddressRiskPreventSafetyUnderageUsers)
+        .toStrictEqual(["No steps taken"]);
+    expect(s.doNoHarm.protectionFromHarassment.griefAbuseHarassmentProtection)
+        .toBe("Yes");
+    expect(s.doNoHarm.protectionFromHarassment
+            .harassmentProtectionSteps)
+        .toStrictEqual(["Harassment Protection Step 1", "Step 2", "Step3"]);
+    expect(s.doNoHarm.preventHarm.stepsToPreventHarm).toBe("Yes");
+    expect(s.doNoHarm.preventHarm.additionalInfoMechanismProcessesPolicies)
+        .toBe("Public organizations have ethics and value based policies");
 
 });

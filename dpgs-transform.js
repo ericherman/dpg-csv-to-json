@@ -79,15 +79,41 @@ function transform_row_to_submission(headers, row) {
     submission.standards = standards;
 
     let doNoHarm = {};
+
     let dataPrivacySecurity = {};
     dataPrivacySecurity.collectsPII = row[headers[30]];
     dataPrivacySecurity.typesOfDataCollected = row[headers[31]].split(', ');
     dataPrivacySecurity.thirdPartyDataSharing = row[headers[32]];
     dataPrivacySecurity.dataSharingCircumstances = row[headers[33]].split('\n');
+    // columns 34 and 35 do not appear to be present in the schema
     dataPrivacySecurity.ensurePrivacySecurity = row[headers[36]];
     dataPrivacySecurity.privacySecurityDescription = row[headers[37]];
 
+    let inappropriateIllegalContent = {};
+    inappropriateIllegalContent.collectStoreDistribute = row[headers[38]];
+    inappropriateIllegalContent.type = row[headers[39]];
+    inappropriateIllegalContent.illegalContentDetection = row[headers[40]];
+    inappropriateIllegalContent.illegalContentDetectionMechanism =
+        row[headers[41]];
+
+    let protectionFromHarassment = {};
+    protectionFromHarassment.userInteraction = row[headers[42]];
+    protectionFromHarassment.addressSafetySecurityUnderageUsers =
+        row[headers[43]];
+    protectionFromHarassment.stepsAddressRiskPreventSafetyUnderageUsers =
+        row[headers[44]].split('\n');
+    protectionFromHarassment.griefAbuseHarassmentProtection = row[headers[45]];
+    protectionFromHarassment.harassmentProtectionSteps =
+        row[headers[46]].split('\n');
+
+    let preventHarm = {};
+    preventHarm.stepsToPreventHarm = row[headers[47]];
+    preventHarm.additionalInfoMechanismProcessesPolicies = row[headers[48]];
+
     doNoHarm.dataPrivacySecurity = dataPrivacySecurity;
+    doNoHarm.inappropriateIllegalContent = inappropriateIllegalContent;
+    doNoHarm.protectionFromHarassment = protectionFromHarassment;
+    doNoHarm.preventHarm = preventHarm;
     submission.doNoHarm = doNoHarm;
 
     return submission;
