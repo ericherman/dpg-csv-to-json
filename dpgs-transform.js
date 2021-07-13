@@ -1,5 +1,9 @@
 // vim: set sts=4 shiftwidth=4 expandtab :
 
+// TODO: comma split robustness
+// TODO: trim strings
+// TODO: remove empty strings from lists
+
 const fs = require('fs');
 const csv = require('csvtojson');
 
@@ -73,6 +77,18 @@ function transform_row_to_submission(headers, row) {
     standards.implementBestPractices = row[headers[28]];
     standards.bestPracticesList = row[headers[29]].split('\n');
     submission.standards = standards;
+
+    let doNoHarm = {};
+    let dataPrivacySecurity = {};
+    dataPrivacySecurity.collectsPII = row[headers[30]];
+    dataPrivacySecurity.typesOfDataCollected = row[headers[31]].split(', ');
+    dataPrivacySecurity.thirdPartyDataSharing = row[headers[32]];
+    dataPrivacySecurity.dataSharingCircumstances = row[headers[33]].split('\n');
+    dataPrivacySecurity.ensurePrivacySecurity = row[headers[36]];
+    dataPrivacySecurity.privacySecurityDescription = row[headers[37]];
+
+    doNoHarm.dataPrivacySecurity = dataPrivacySecurity;
+    submission.doNoHarm = doNoHarm;
 
     return submission;
 }

@@ -41,7 +41,7 @@ test('test row transform', async () => {
         "28": "No",
         "29": "Practice 1\nPractice 2",
         "30": "No",
-        "31": "",
+        "31": "name, email",
         "32": "",
         "33": "",
         "34": "",
@@ -119,5 +119,15 @@ test('test row transform', async () => {
     expect(s.standards.implementBestPractices).toBe("No");
     let practices = ["Practice 1", "Practice 2", ];
     expect(s.standards.bestPracticesList).toStrictEqual(practices);
+
+    expect(s.doNoHarm.dataPrivacySecurity.collectsPII).toBe("No");
+    let pii_collected = ["name", "email"];
+    expect(s.doNoHarm.dataPrivacySecurity.typesOfDataCollected).toStrictEqual(
+        pii_collected);
+    expect(s.doNoHarm.dataPrivacySecurity.thirdPartyDataSharing).toBe("");
+    expect(s.doNoHarm.dataPrivacySecurity.dataSharingCircumstances)
+        .toStrictEqual([""]);
+    expect(s.doNoHarm.dataPrivacySecurity.ensurePrivacySecurity).toBe("");
+    expect(s.doNoHarm.dataPrivacySecurity.privacySecurityDescription).toBe("");
 
 });
