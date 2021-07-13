@@ -52,6 +52,13 @@ function transform_row_to_submission(headers, row) {
     NonPII.nonPIIAccessMechanism = ""; // TODO: find how to get this field.
     submission.NonPII = NonPII;
 
+    let locations = {};
+    let developmentCountries = row[headers[19]].split(', ');
+    locations.developmentCountries = developmentCountries;
+    let deploymentCountries = row[headers[20]].split(', ');
+    locations.deploymentCountries = deploymentCountries;
+    submission.locations = locations;
+
     return submission;
 }
 

@@ -29,8 +29,8 @@ test('test row transform', async () => {
         "16": "https://github.com/publiccodenet/standard",
         "17": "No",
         "18": "",
-        "19": "The Netherlands",
-        "20": "The Standard for Public Code is already in use in the Netherlands. We know of people and organizations in France, Germany and Denmark who would like to use it (based on efforts to get a translation). It is developed as a global asset and can be deployed by anyone, anywhere.",
+        "19": "The Netherlands, Sweden",
+        "20": "The Netherlands, Denmark",
         "21": "Yes",
         "22": "This project doesn't require, collect or store any personal information. It is fully EU General Data Protection Regulation compliant.\n\nThe project encourages users to avoid sharing sensitive data on their own platforms (see 'How to test' in [Code in the open](https://standard.publiccode.net/criteria/code-in-the-open.html)).",
         "23": "Yes",
@@ -88,4 +88,11 @@ test('test row transform', async () => {
     expect(s.NonPII.collectsNonPII).toBe("No");
     expect(s.NonPII.checkNonPIIAccessMechanism).toBe("");
     expect(s.NonPII.nonPIIAccessMechanism).toBe("");
+
+    let devCountries = [ "The Netherlands", "Sweden" ];
+    expect(s.locations.developmentCountries).toStrictEqual(devCountries);
+
+    let depCountries = [ "The Netherlands", "Denmark" ];
+    expect(s.locations.deploymentCountries).toStrictEqual(depCountries);
+
 });
