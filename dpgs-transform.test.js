@@ -36,10 +36,10 @@ test('test row transform', async () => {
         "23": "Yes",
         "24": "The Standard for Public Code is best practice guidance",
         "25": "Yes",
-        "26": "The Standard requires or strongly encourages users to meet or use:\n\n- [Web Content Accessibility Guidelines 2.1](https://www.w3.org/TR/WCAG21/) \n- [publiccode.yml](https://github.com/italia/publiccode.yml)\n- one of these:\n\t- [Business Process Model and Notation](http://www.bpmn.org/) (BPMN)\n\t- [Decision Model Notation](https://www.omg.org/dmn/) (DMN)\n\t- [Case Management Model Notation](https://www.omg.org/cmmn/) (CMMN)\n- Open standards as defined by the [Open Source Initiative Open Standard Requirements](https://opensource.org/osr)\n- an [Open Source Institute approved open source license](https://opensource.org/licenses/category).\n\nFor clarity and ease of use, the Standard uses, meets or follows:\n\n- [RFC 2119](https://tools.ietf.org/html/rfc2119)",
-        "27": "- WCAAG 2: see 'Requirements' in [Use plain English](https://standard.publiccode.net/criteria/understandable-english-first.html#requirements)\n- publiccode.yml: see 'Requirements' in [Create reusable and portable code](https://standard.publiccode.net/criteria/reusable-and-portable-codebases.html#requirements)\n- BPMN, DMN or CMMN: see 'Policy makers: what you need to do' in [Bundle policy and code](https://standard.publiccode.net/criteria/bundle-policy-and-code.html#policy-makers:-what-you-need-to-do)\n- Open standards: see 'Requirements' in [Use open standards](https://standard.publiccode.net/criteria/open-standards.html#requirements)\n- Open source licence: see 'Requirements' in [Publish with an open license](https://standard.publiccode.net/criteria/open-licenses.html)\n- RFC 2119: see the [reader's guide](https://standard.publiccode.net/readers-guide.html)\n\nWe strive to ensure that the Standard itself meets the requirements set out in the Standard.",
+        "26": "Web Content Accessibility Guidelines 2.1\npubliccode.yml",
+        "27": "https://standard.publiccode.net/criteria/understandable-english-first.html\nhttps://standard.publiccode.net/criteria/reusable-and-portable-codebases.html#requirements",
         "28": "No",
-        "29": "",
+        "29": "Practice 1\nPractice 2",
         "30": "No",
         "31": "",
         "32": "",
@@ -104,4 +104,20 @@ test('test row transform', async () => {
         "The Standard for Public Code is best practice guidance",
     ];
     expect(s.privacy.adherenceSteps).toStrictEqual(adherance_steps);
+
+    expect(s.standards.supportStandards).toBe("Yes");
+    let standards = [
+        "Web Content Accessibility Guidelines 2.1",
+        "publiccode.yml",
+    ];
+    expect(s.standards.standardsList).toStrictEqual(standards);
+    let evidence = [
+        "https://standard.publiccode.net/criteria/understandable-english-first.html",
+        "https://standard.publiccode.net/criteria/reusable-and-portable-codebases.html#requirements",
+    ];
+    expect(s.standards.evidenceStandardSupport).toStrictEqual(evidence);
+    expect(s.standards.implementBestPractices).toBe("No");
+    let practices = ["Practice 1", "Practice 2", ];
+    expect(s.standards.bestPracticesList).toStrictEqual(practices);
+
 });

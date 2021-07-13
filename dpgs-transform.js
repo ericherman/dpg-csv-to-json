@@ -66,6 +66,14 @@ function transform_row_to_submission(headers, row) {
     privacy.adherenceSteps = row[headers[24]].split('\n');
     submission.privacy = privacy;
 
+    let standards = {};
+    standards.supportStandards = row[headers[25]];
+    standards.standardsList = row[headers[26]].split('\n');
+    standards.evidenceStandardSupport = row[headers[27]].split('\n');
+    standards.implementBestPractices = row[headers[28]];
+    standards.bestPracticesList = row[headers[29]].split('\n');
+    submission.standards = standards;
+
     return submission;
 }
 
