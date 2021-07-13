@@ -32,9 +32,9 @@ test('test row transform', async () => {
         "19": "The Netherlands, Sweden",
         "20": "The Netherlands, Denmark",
         "21": "Yes",
-        "22": "This project doesn't require, collect or store any personal information. It is fully EU General Data Protection Regulation compliant.\n\nThe project encourages users to avoid sharing sensitive data on their own platforms (see 'How to test' in [Code in the open](https://standard.publiccode.net/criteria/code-in-the-open.html)).",
+        "22": "This project doesn't require, collect or store any personal information.\nIt is fully EU General Data Protection Regulation compliant.",
         "23": "Yes",
-        "24": "The Standard for Public Code is best practice guidance for developing open source software projects. Though public bodies implementing the Standard are subject to laws, the Standard itself is not. The Standard does not encourage illegal behavior.",
+        "24": "The Standard for Public Code is best practice guidance",
         "25": "Yes",
         "26": "The Standard requires or strongly encourages users to meet or use:\n\n- [Web Content Accessibility Guidelines 2.1](https://www.w3.org/TR/WCAG21/) \n- [publiccode.yml](https://github.com/italia/publiccode.yml)\n- one of these:\n\t- [Business Process Model and Notation](http://www.bpmn.org/) (BPMN)\n\t- [Decision Model Notation](https://www.omg.org/dmn/) (DMN)\n\t- [Case Management Model Notation](https://www.omg.org/cmmn/) (CMMN)\n- Open standards as defined by the [Open Source Initiative Open Standard Requirements](https://opensource.org/osr)\n- an [Open Source Institute approved open source license](https://opensource.org/licenses/category).\n\nFor clarity and ease of use, the Standard uses, meets or follows:\n\n- [RFC 2119](https://tools.ietf.org/html/rfc2119)",
         "27": "- WCAAG 2: see 'Requirements' in [Use plain English](https://standard.publiccode.net/criteria/understandable-english-first.html#requirements)\n- publiccode.yml: see 'Requirements' in [Create reusable and portable code](https://standard.publiccode.net/criteria/reusable-and-portable-codebases.html#requirements)\n- BPMN, DMN or CMMN: see 'Policy makers: what you need to do' in [Bundle policy and code](https://standard.publiccode.net/criteria/bundle-policy-and-code.html#policy-makers:-what-you-need-to-do)\n- Open standards: see 'Requirements' in [Use open standards](https://standard.publiccode.net/criteria/open-standards.html#requirements)\n- Open source licence: see 'Requirements' in [Publish with an open license](https://standard.publiccode.net/criteria/open-licenses.html)\n- RFC 2119: see the [reader's guide](https://standard.publiccode.net/readers-guide.html)\n\nWe strive to ensure that the Standard itself meets the requirements set out in the Standard.",
@@ -82,17 +82,26 @@ test('test row transform', async () => {
     expect(s.platformIndependence.pltIndependenceDesc).toBe("");
 
     expect(s.documentation.isDocumentationAvailable).toBe("Yes");
-    let urls = [ "https://github.com/publiccodenet/standard" ];
+    let urls = ["https://github.com/publiccodenet/standard"];
     expect(s.documentation.documentationURL).toStrictEqual(urls);
 
     expect(s.NonPII.collectsNonPII).toBe("No");
     expect(s.NonPII.checkNonPIIAccessMechanism).toBe("");
     expect(s.NonPII.nonPIIAccessMechanism).toBe("");
 
-    let devCountries = [ "The Netherlands", "Sweden" ];
+    let devCountries = ["The Netherlands", "Sweden"];
     expect(s.locations.developmentCountries).toStrictEqual(devCountries);
 
-    let depCountries = [ "The Netherlands", "Denmark" ];
+    let depCountries = ["The Netherlands", "Denmark"];
     expect(s.locations.deploymentCountries).toStrictEqual(depCountries);
-
+    // much of the data in the spreadsheet is freetext like this
+    let compliance_list_garbage = [
+        "This project doesn't require, collect or store any personal information.",
+        "It is fully EU General Data Protection Regulation compliant.",
+    ];
+    expect(s.privacy.privacyComplianceList).toStrictEqual(compliance_list_garbage)
+    let adherance_steps = [
+        "The Standard for Public Code is best practice guidance",
+    ];
+    expect(s.privacy.adherenceSteps).toStrictEqual(adherance_steps);
 });

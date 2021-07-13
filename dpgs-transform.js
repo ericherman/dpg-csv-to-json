@@ -59,6 +59,13 @@ function transform_row_to_submission(headers, row) {
     locations.deploymentCountries = deploymentCountries;
     submission.locations = locations;
 
+    let privacy = {};
+    privacy.isPrivacyCompliant = row[headers[21]];
+    privacy.privacyComplianceList = row[headers[22]].split('\n');
+    // header[23] is a yes-no questions seemingly not reflected in the schema
+    privacy.adherenceSteps = row[headers[24]].split('\n');
+    submission.privacy = privacy;
+
     return submission;
 }
 
