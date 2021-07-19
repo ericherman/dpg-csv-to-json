@@ -1,10 +1,14 @@
 default: run
 
-check:
+node_modules/csvtojson/package.json:
 	npm install
+
+csvtojson: node_modules/csvtojson/package.json
+
+check: csvtojson
 	npm test
 
-run: clean
+run: clean csvtojson
 	node ./dpgs-transform-main.js
 
 tidy:
