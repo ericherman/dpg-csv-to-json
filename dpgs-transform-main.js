@@ -4,32 +4,11 @@ const txfrm = require('./dpgs-transform');
 
 const fs = require('fs');
 const csv = require('csvtojson');
-
-async function path_to_rows(path) {
-    let headers = [];
-    let converter = csv({
-        flatKeys: true
-    }).on('header', (doc_headers) => {
-        for (let i = 0; i < doc_headers.length; ++i) {
-            headers.push(doc_headers[i]);
-        }
-    }).fromFile(path);
-
-    let rows = [];
-    await converter.then((objs) => {
-        for (let i = 0; i < objs.length; ++i) {
-            rows.push(objs[i]);
-        }
-    });
-    return {
-        headers: headers,
-        rows: rows
-    };
-}
+const utils = require('./dpgs-transform-util.js')
 
 async function main() {
     const csvFilePath = 'Digital-Public-Goods-Submissions-Sheet1.csv';
-    let result = await path_to_rows(csvFilePath);
+    let result = await utils.path_to_rows(csvFilePath);
     let rows = result.rows;
     let headers = result.headers;
 
