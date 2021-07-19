@@ -1,8 +1,10 @@
+default: run
+
 check:
 	npm install
 	npm test
 
-run:
+run: clean
 	node ./dpgs-transform-main.js
 
 tidy:
