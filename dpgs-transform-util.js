@@ -27,12 +27,20 @@ async function path_to_rows(path) {
 
 function kebab_case(str) {
     let out = str.trim();
+    // ignore everything after a colon
+    if (str.indexOf(":") > 0) {
+        out = out.substr(0, str.indexOf(":"))
+    }
     // remove punctuation
-    out = out.replace(/[^a-zA-Z0-9\s\-]/g, "");
+    // excpet! the tests differ from the writen instructions:
+    // see: https://github.com/unicef/publicgoods-candidates/blob/master/docs/development.md#ci---continous-integration
+    // but also:
+    // Filename is not valid: african-terrestrial-fibre-network-mapping-project-af-ter-fibre.json, it should be african-terrestrial-fibre-network-mapping-project-(afterfibre).json, where the filename must match the 'name' field in kebab case.
+    out = out.replace(/[^a-zA-Z0-9()\s\-]/g, "");
     // convert space to dash
     out = out.replace(/\s+/g, '-');
-    // convert twoWords to two-words
-    out = out.replace(/([a-z])([A-Z])/g, "$1-$2");
+    // // convert twoWords to two-words
+    // out = out.replace(/([a-z])([A-Z])/g, "$1-$2");
     // lower-case it last
     out = out.toLowerCase();
     return out;
