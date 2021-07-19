@@ -3,31 +3,33 @@
 const txfrm = require('./dpgs-transform');
 
 const fs = require('fs');
+const path = require('path');
 const csv = require('csvtojson');
-const utils = require('./dpgs-transform-util.js')
+const util = require('./dpgs-transform-util.js')
 
 async function main() {
+    let subdir = "out";
+    let dir = path.join(__dirname, subdir);
+    await fs.mkdir(dir, (err) => {
+        if (err) {
+            throw error;
+        }
+    });
+
     const csvFilePath = 'Digital-Public-Goods-Submissions-Sheet1.csv';
-    let result = await utils.path_to_rows(csvFilePath);
+    let result = await util.path_to_rows(csvFilePath);
     let rows = result.rows;
     let headers = result.headers;
 
     let submissions = [];
     for (let i = 0; i < rows.length; ++i) {
         let row = rows[i];
-        if (0 && (i == 3)) {
-            console.log(JSON.stringify({
-                row: row
-            }, null, 4));
-        }
         let submission = txfrm.transform_row_to_submission(headers, row);
-        submissions.push(submission);
+        let filename = util.submission_to_filename(submission);
+        let fullpath = path.join(dir, filename);
+        console.log(fullpath);
+        await util.submission_to_file(fullpath, submission)
     }
-
-    console.log(JSON.stringify({
-        headers: headers,
-        submissions: submissions,
-    }, null, 4));
 }
 
 main();
