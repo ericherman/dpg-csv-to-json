@@ -38,7 +38,19 @@ function kebab_case(str) {
     return out;
 }
 
+function submission_to_filename(submission) {
+    let name = kebab_case(submission.name)
+    return name + ".json";
+}
+
+async function submission_to_file(filename, submission) {
+    let contents = JSON.stringify(submission, null, 4) + "\n";
+    await fs.writeFileSync(filename, contents);
+}
+
 module.exports = {
     path_to_rows: path_to_rows,
     kebab_case: kebab_case,
+    submission_to_filename: submission_to_filename,
+    submission_to_file: submission_to_file,
 };
