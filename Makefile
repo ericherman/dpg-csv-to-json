@@ -7,3 +7,6 @@ run:
 
 tidy:
 	js-beautify --replace --end-with-newline *.js
+
+clean:
+	rm -rf out

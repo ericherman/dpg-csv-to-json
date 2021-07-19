@@ -124,10 +124,12 @@ test('test row transform', async () => {
     let pii_collected = ["name", "email"];
     expect(s.doNoHarm.dataPrivacySecurity.typesOfDataCollected).toStrictEqual(
         pii_collected);
-    expect(s.doNoHarm.dataPrivacySecurity.thirdPartyDataSharing).toBe("");
+    expect(s.doNoHarm.dataPrivacySecurity.thirdPartyDataSharing)
+        .toBe("Unknown");
     expect(s.doNoHarm.dataPrivacySecurity.dataSharingCircumstances)
         .toStrictEqual([""]);
-    expect(s.doNoHarm.dataPrivacySecurity.ensurePrivacySecurity).toBe("");
+    expect(s.doNoHarm.dataPrivacySecurity.ensurePrivacySecurity)
+        .toBe("Unknown");
     expect(s.doNoHarm.dataPrivacySecurity.privacySecurityDescription).toBe("");
 
     expect(s.doNoHarm.inappropriateIllegalContent.collectStoreDistribute)

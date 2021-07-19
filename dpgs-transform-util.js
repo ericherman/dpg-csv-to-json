@@ -44,7 +44,7 @@ function submission_to_filename(submission) {
 }
 
 async function submission_to_file(filename, submission) {
-    let contents = JSON.stringify(submission, null, 4) + "\n";
+    let contents = JSON.stringify(submission, null, 2) + "\n";
     await fs.writeFileSync(filename, contents);
 }
 
